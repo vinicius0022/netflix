@@ -1,0 +1,17 @@
+import faqsData from '../fixtures/faqs.json'
+import React from 'react'
+import { Accordion } from '../components';
+
+export function FaqsContainer() {
+    return(
+        <Accordion>
+            <Accordion.Title>Perguntas frequentes</Accordion.Title>
+            {faqsData.map((item) => (
+                <Accordion.Item key={item.id}>
+                    <Accordion.Header>{item.header}</Accordion.Header>
+                    <Accordion.Body>{item.body}</Accordion.Body>
+                </Accordion.Item>
+            ))}
+        </Accordion>
+    )
+}
