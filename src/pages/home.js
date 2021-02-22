@@ -10,10 +10,8 @@ export default function App() {
         <>
             <HeaderContainer>
                 <Feature>
-                    <Feature.Title>Filmes, séries e muito mais. Sem limites.
-</Feature.Title>
-                    <Feature.SubTitle>Assista onde quiser. Cancele quando quiser.
-</Feature.SubTitle>
+                    <Feature.Title>Filmes, séries e muito mais. Sem limites.</Feature.Title>
+                    <Feature.SubTitle>Assista onde quiser. Cancele quando quiser.</Feature.SubTitle>
                     <OptForm>
                         <OptForm.Text>
                             Pronto para assistir? Informe seu email para criar ou reiniciar sua assinatura.
