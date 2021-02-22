@@ -38,12 +38,8 @@ export default function Signin() {
                         <Form.Submit disabled={isInvalid} type="submit">Entrar</Form.Submit>
                     </Form.Base>
 
-                    <Form.Text>
-                        Novo por aqui? <Form.Link to="/signup">Assine agora</Form.Link>
-                    </Form.Text>
-                    <Form.TextSmall>
-                        Esta página é protegida pelo Google reCAPTCHA para garantir que você não é um robô. Saiba mais.
-                    </Form.TextSmall>
+                    <Form.Text>Novo por aqui? <Form.Link to="/signup">Assine agora</Form.Link></Form.Text>
+                    <Form.TextSmall>Esta página é protegida pelo Google reCAPTCHA para garantir que você não é um robô. Saiba mais.</Form.TextSmall>
                 </Form>
             </HeaderContainer>
             <FooterContainer/>
