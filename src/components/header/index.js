@@ -1,6 +1,23 @@
 import React, { useState } from 'react'
 import { Link as ReactRouterLink } from 'react-router-dom'
-import { Background, Container, Group, Dropdown, Profile, Picture, Logo, ButtonLink, Feature, FeatureCallOut ,Text, Link, Search, SearchIcon, SearchInput } from './styles/header'
+import { 
+    Background, 
+    Container, 
+    Group, 
+    Dropdown, 
+    Profile, 
+    Picture, 
+    Logo, 
+    ButtonLink, 
+    Feature, 
+    FeatureCallOut,
+    Text, 
+    Link, 
+    Search, 
+    SearchIcon, 
+    SearchInput, 
+    PlayButton 
+} from './styles/header'
 
 export default function Header({ bg= true, children, ...restProps }) {
     return bg ? <Background {...restProps}>{children}</Background> : children
@@ -20,6 +37,10 @@ Header.Text = function HeaderText({ children, ...restProps }) {
 
 Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
     return <Link {...restProps}>{children}</Link>
+}
+
+Header.PlayButton = function HeaderPlayButton({ children, ...restProps }) {
+    return <PlayButton {...restProps}>{children}</PlayButton>
 }
 
 Header.Frame = function HeaderFrame({ children, ...restProps }) {
