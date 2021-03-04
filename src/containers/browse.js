@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { SelectProfileContainer } from './profiles'
+import { FooterContainer } from './footer'
 import { FirebaseContext } from '../context/firebase'
-import { Header, Loading } from '../components'
+import { Card, Header, Loading } from '../components'
 import * as ROUTES from '../constants/routes'
 import logo from '../logo.svg'
 
 export function BrowseContainer({ slides }) {
+    const [category, setCategory] = useState('films')
     const [searchTerm, setSearchTerm] = useState('')
     const [profile, setProfile] = useState({})
     const [loading, setLoading] = useState(true)
+    const [slideRows, setSlideRows] = useState([])
+
     const { firebase } = useContext(FirebaseContext)
     const user = firebase.auth().currentUser || {}
 
@@ -18,6 +22,10 @@ export function BrowseContainer({ slides }) {
         }, 3000)
     }, [profile.displayName])
 
+    useEffect(() => {
+        setSlideRows(slides[category])
+    },[slides, category])
+
     return profile.displayName ? (
         <>
         {loading ? (<Loading src={user.photoURL} />) : (<Loading.ReleaseBody />)}
@@ -25,8 +33,8 @@ export function BrowseContainer({ slides }) {
             <Header.Frame>
                 <Header.Group>
                     <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
-                    <Header.TextLink>Series</Header.TextLink>
-                    <Header.TextLink>Filmes</Header.TextLink>
+                    <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => setCategory('series')} >Series</Header.TextLink>
+                    <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')} >Filmes</Header.TextLink>
                 </Header.Group>
                 <Header.Group>
                     <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -52,6 +60,29 @@ export function BrowseContainer({ slides }) {
                 <Header.PlayButton>Assistir</Header.PlayButton>
             </Header.Feature>
         </Header>
+
+        <Card.Group>
+            {slideRows.map((slideItem) => (
+                <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
+                    <Card.Title>{slideItem.title}</Card.Title>
+                    <Card.Entities>
+                        {slideItem.data.map((item) => (
+                            <Card.Item key={item.docId} item={item}>
+                                <Card.Image src={`/images/${category}/${item.genre}/${item.slug}/small.jpg`} />
+                                <Card.Meta>
+                                    <Card.SubTitle>{item.title}</Card.SubTitle>
+                                    <Card.Text>{item.description}</Card.Text>
+                                </Card.Meta>
+                            </Card.Item>
+                        ))}
+                    </Card.Entities>
+                    {<Card.Feature category={category}>
+                        
+                    </Card.Feature>}
+                </Card>
+            ))}
+        </Card.Group>
+        <FooterContainer />
         </>
     ) : (<SelectProfileContainer user={user} setProfile={setProfile} />)
 }
